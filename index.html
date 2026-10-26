@@ -58,12 +58,18 @@
       scrollbar-width: none;
     }
     .card-zoom {
-      transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease, border-color 0.3s ease;
+      transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease;
     }
     .card-zoom:hover {
       transform: translateY(-6px) scale(1.03);
       z-index: 30;
-      box-shadow: 0 20px 30px -10px rgba(229, 9, 20, 0.35);
+      box-shadow: 0 20px 30px -10px rgba(229, 9, 20, 0.4);
+    }
+    .glass-pill {
+      background: rgba(31, 31, 31, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     @keyframes modalEnter {
       from { opacity: 0; transform: scale(0.94) translateY(12px); }
@@ -71,9 +77,6 @@
     }
     .modal-animate {
       animation: modalEnter 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    .hero-glow {
-      box-shadow: 0 0 50px -10px rgba(229, 9, 20, 0.25);
     }
     .pulse-live {
       animation: pulseRed 1.8s infinite;
@@ -88,11 +91,11 @@
 <body class="bg-netflix-bg text-gray-100 font-sans min-h-screen antialiased flex flex-col justify-between selection:bg-netflix-red selection:text-white pb-24 md:pb-0">
 
   <!-- Top Announcement Banner -->
-  <div id="top-banner" class="bg-black border-b border-netflix-border px-4 py-2.5 flex items-center justify-between text-xs sm:text-sm">
+  <div id="top-banner" class="glass-pill border-b border-netflix-border px-4 py-2.5 flex items-center justify-between text-xs sm:text-sm">
     <div class="flex items-center space-x-2 overflow-hidden">
       <span class="bg-netflix-red text-white font-black px-2 py-0.5 rounded text-[10px] tracking-wider uppercase flex-shrink-0 shadow-sm">100% FREE</span>
       <p class="truncate text-gray-300">
-        <span class="font-bold text-white">No subscription fees.</span> Stream movies, series & live Luganda TV channels 24/7!
+        <span class="font-bold text-white">Watch with friends.</span> Synchronized watch party rooms and live TV streams are now live!
       </p>
     </div>
     <button onclick="document.getElementById('top-banner').remove()" class="text-gray-400 hover:text-white p-1 ml-2 transition">
@@ -101,11 +104,10 @@
   </div>
 
   <!-- Header Navigation -->
-  <header class="sticky top-0 z-40 bg-netflix-bg/95 backdrop-blur-md border-b border-netflix-border px-4 md:px-8 py-3.5 flex items-center justify-between shadow-xl">
+  <header class="sticky top-0 z-40 glass-pill border-b border-netflix-border px-4 md:px-8 py-3.5 flex items-center justify-between shadow-2xl">
     <div class="flex items-center space-x-6 w-full md:w-auto">
-      <!-- Logo: trendzzz streams -->
       <a href="#" onclick="switchTab('home')" class="flex items-center space-x-2.5 group">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-netflix-red to-red-600 flex items-center justify-center text-white font-black text-lg group-hover:scale-105 transition shadow-lg shadow-netflix-red/40 relative overflow-hidden">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-netflix-red to-rose-600 flex items-center justify-center text-white font-black text-lg group-hover:scale-105 transition shadow-lg shadow-netflix-red/40 relative overflow-hidden">
           <div class="absolute inset-y-0 right-0 w-3 bg-black/20 flex flex-col justify-between py-1 px-0.5">
             <div class="w-full h-1 bg-white/40 rounded-full"></div>
             <div class="w-full h-1 bg-white/40 rounded-full"></div>
@@ -123,8 +125,8 @@
           type="text" 
           id="search-input"
           oninput="handleSearch(this.value)"
-          placeholder="Search movies, TV channels, VJs..." 
-          class="w-full bg-netflix-card border border-netflix-border text-sm rounded-xl pl-10 pr-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-netflix-red focus:ring-1 focus:ring-netflix-red transition shadow-inner"
+          placeholder="Search movies, TV shows, or VJs..." 
+          class="w-full bg-netflix-card/80 border border-netflix-border text-sm rounded-xl pl-10 pr-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-netflix-red transition shadow-inner"
         />
       </div>
     </div>
@@ -135,11 +137,11 @@
         <i class="fa-solid fa-cloud-arrow-up"></i>
         <span class="hidden sm:inline">Upload Video</span>
       </button>
-      <button onclick="toggleAdminPanel()" class="bg-netflix-card hover:bg-netflix-cardHover border border-netflix-border text-xs px-3 py-2 rounded-xl text-gray-200 transition flex items-center gap-1.5 font-medium">
+      <button onclick="toggleAdminPanel()" class="glass-pill hover:bg-netflix-cardHover border border-netflix-border text-xs px-3 py-2 rounded-xl text-gray-200 transition flex items-center gap-1.5 font-medium">
         <i class="fa-solid fa-shield-halved text-netflix-red"></i>
         <span class="hidden md:inline">Admin AI</span>
       </button>
-      <button onclick="openAuthModal()" class="bg-netflix-card hover:bg-netflix-cardHover border border-netflix-border text-xs px-3.5 py-2 rounded-xl text-white transition flex items-center gap-1.5 font-medium">
+      <button onclick="openAuthModal()" class="glass-pill hover:bg-netflix-cardHover border border-netflix-border text-xs px-3.5 py-2 rounded-xl text-white transition flex items-center gap-1.5 font-medium">
         <i class="fa-solid fa-user-circle text-netflix-red"></i>
         <span id="auth-btn-text">Sign In</span>
       </button>
@@ -153,9 +155,9 @@
     <div id="tab-home" class="space-y-10">
       
       <!-- HERO SHOWCASE CAROUSEL -->
-      <section class="relative rounded-3xl overflow-hidden bg-netflix-card border border-netflix-border shadow-2xl min-h-[460px] flex flex-col justify-end hero-glow">
+      <section class="relative rounded-3xl overflow-hidden bg-netflix-card border border-netflix-border shadow-2xl min-h-[460px] flex flex-col justify-end">
         <div class="absolute inset-0 z-0">
-          <img id="hero-bg" src="" class="w-full h-full object-cover opacity-40 transition-all duration-700 scale-105" alt="Hero Banner" />
+          <img id="hero-bg" src="" class="w-full h-full object-cover opacity-45 transition-all duration-700 scale-105" alt="Hero Banner" />
           <div class="absolute inset-0 bg-gradient-to-t from-netflix-bg via-netflix-bg/70 to-transparent"></div>
           <div class="absolute inset-0 bg-gradient-to-r from-netflix-bg via-netflix-bg/50 to-transparent"></div>
         </div>
@@ -163,14 +165,14 @@
         <div class="relative z-10 p-6 md:p-10 max-w-2xl space-y-4">
           <div class="flex items-center gap-2 flex-wrap">
             <span id="hero-vj" class="bg-netflix-red text-white font-black text-xs px-3 py-1 rounded-lg uppercase tracking-wide shadow-md">VJ ICE P</span>
-            <span id="hero-type" class="bg-black/80 backdrop-blur-md text-xs px-3 py-1 rounded-lg text-gray-300 border border-netflix-border">TV Show</span>
-            <span id="hero-year" class="bg-black/80 backdrop-blur-md text-xs px-3 py-1 rounded-lg text-gray-300 border border-netflix-border">2022</span>
+            <span id="hero-type" class="glass-pill text-xs px-3 py-1 rounded-lg text-gray-300 border border-netflix-border">TV Show</span>
+            <span id="hero-year" class="glass-pill text-xs px-3 py-1 rounded-lg text-gray-300 border border-netflix-border">2022</span>
             <span class="bg-amber-500/20 text-amber-300 text-xs px-2.5 py-1 rounded-lg border border-amber-500/30 flex items-center gap-1 font-semibold">
               <i class="fa-solid fa-star text-amber-400 text-[10px]"></i> 4.9
             </span>
           </div>
 
-          <h1 id="hero-title" class="text-3xl md:text-5xl font-black tracking-tight text-white">THE TERMINAL LIST</h1>
+          <h1 id="hero-title" class="text-3xl md:text-5xl font-black tracking-tight text-white drop-shadow-md">THE TERMINAL LIST</h1>
 
           <p id="hero-desc" class="text-sm md:text-base text-gray-300 line-clamp-3 leading-relaxed font-light">
             Navy SEAL Commander James Reece turns to vengeance as he investigates mysterious forces behind his platoon's ambush...
@@ -181,56 +183,49 @@
               <i class="fa-solid fa-circle-info text-base"></i>
               <span>View details</span>
             </button>
-            <button onclick="playVideoModal()" class="bg-black/80 hover:bg-netflix-border text-white font-semibold text-sm px-5 py-3 rounded-xl border border-netflix-border transition flex items-center gap-2 backdrop-blur-md">
-              <i class="fa-solid fa-play text-netflix-red"></i>
-              <span>Watch Stream</span>
+            <button onclick="triggerWatchPartyModal()" class="glass-pill hover:bg-netflix-border text-white font-semibold text-sm px-4 py-3 rounded-xl border border-netflix-border transition flex items-center gap-2">
+              <i class="fa-solid fa-users text-netflix-red"></i>
+              <span>Watch with friends</span>
             </button>
           </div>
         </div>
 
         <div class="absolute bottom-6 right-6 z-10 flex items-center gap-3">
-          <button onclick="prevHeroSlide()" class="w-10 h-10 rounded-xl bg-black/80 hover:bg-netflix-red hover:text-white text-white flex items-center justify-center border border-netflix-border transition shadow-lg">
+          <button onclick="prevHeroSlide()" class="w-10 h-10 rounded-xl glass-pill hover:bg-netflix-red text-white flex items-center justify-center border border-netflix-border transition shadow-lg">
             <i class="fa-solid fa-chevron-left text-xs"></i>
           </button>
           <div id="hero-dots" class="flex gap-1.5 px-2"></div>
-          <button onclick="nextHeroSlide()" class="w-10 h-10 rounded-xl bg-black/80 hover:bg-netflix-red hover:text-white text-white flex items-center justify-center border border-netflix-border transition shadow-lg">
+          <button onclick="nextHeroSlide()" class="w-10 h-10 rounded-xl glass-pill hover:bg-netflix-red text-white flex items-center justify-center border border-netflix-border transition shadow-lg">
             <i class="fa-solid fa-chevron-right text-xs"></i>
           </button>
         </div>
       </section>
 
-      <!-- LIVE TV CHANNELS FEATURED SECTION -->
+      <!-- LIVE TV CHANNELS SECTION -->
       <section class="space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-xl font-black text-white flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-netflix-red pulse-live inline-block"></span>
-            <span>Live TV Channels</span>
+            <span>Live TV Stations & VJ Marathons</span>
           </h2>
-          <button onclick="switchTab('channels')" class="text-xs text-netflix-red hover:underline font-bold">View All Channels &rarr;</button>
+          <button onclick="switchTab('channels')" class="text-xs text-netflix-red hover:underline font-bold">Explore All Channels &rarr;</button>
         </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" id="home-tv-channels-grid">
-          <!-- Injected via JS -->
-        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" id="home-tv-channels-grid"></div>
       </section>
 
-      <!-- TOP 10 RANKED MOVIES / SERIES TODAY -->
+      <!-- TOP 10 RANKED MOVIES TODAY -->
       <section class="space-y-4">
         <h2 class="text-xl font-black text-white flex items-center gap-2">
           <i class="fa-solid fa-fire text-netflix-red"></i>
           <span>Top 10 Translated Rankings Today</span>
         </h2>
-        <div class="flex gap-4 overflow-x-auto pb-4 hide-scrollbar" id="top-rankings-row">
-          <!-- Populated by JS -->
-        </div>
+        <div class="flex gap-4 overflow-x-auto pb-4 hide-scrollbar" id="top-rankings-row"></div>
       </section>
 
       <!-- TRANSLATORS (VJs) SHOWCASE -->
       <section class="space-y-3">
         <h3 class="text-xs font-black text-gray-400 uppercase tracking-widest">Luganda Translators & VJs</h3>
-        <div class="flex items-center gap-2.5 overflow-x-auto pb-2 hide-scrollbar" id="translator-chips">
-          <!-- Injected via JS -->
-        </div>
+        <div class="flex items-center gap-2.5 overflow-x-auto pb-2 hide-scrollbar" id="translator-chips"></div>
       </section>
 
       <!-- POPULAR MOVIES SECTION -->
@@ -258,36 +253,27 @@
       </section>
     </div>
 
-    <!-- LIVE TV CHANNELS TAB CONTENT -->
+    <!-- LIVE TV CHANNELS TAB -->
     <div id="tab-channels" class="hidden space-y-6">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 class="text-2xl font-black text-white flex items-center gap-2">
-            <i class="fa-solid fa-tower-broadcast text-netflix-red"></i>
-            <span>Live TV Stations & Luganda Dubbed Channels</span>
-          </h1>
-          <p class="text-xs text-gray-400">Watch live news, movie channels, VJ stream marathons, and local Ugandan broadcasts 24/7 for free.</p>
-        </div>
-      </div>
+      <h1 class="text-2xl font-black text-white flex items-center gap-2">
+        <i class="fa-solid fa-tower-broadcast text-netflix-red"></i>
+        <span>Live TV Broadcasts & VJ Streams 24/7</span>
+      </h1>
       <div id="full-tv-channels-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
     </div>
 
     <!-- MOVIES TAB CONTENT -->
     <div id="tab-movies" class="hidden space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 class="text-2xl font-black text-white">All Translated Movies</h1>
-          <p class="text-xs text-gray-400">Browse 100% free Luganda translated movies.</p>
-        </div>
-        
+        <h1 class="text-2xl font-black text-white">All Translated Movies</h1>
         <div class="flex items-center gap-2 overflow-x-auto pb-1">
-          <button onclick="openFilterModal('genre')" class="bg-netflix-card hover:bg-netflix-cardHover border border-netflix-border px-3.5 py-2 rounded-xl text-xs text-gray-200 flex items-center gap-2 whitespace-nowrap shadow-sm">
+          <button onclick="openFilterModal('genre')" class="glass-pill hover:bg-netflix-cardHover border border-netflix-border px-3.5 py-2 rounded-xl text-xs text-gray-200 flex items-center gap-2 whitespace-nowrap">
             <span>Genre:</span> <strong id="filter-label-genre" class="text-netflix-red">All</strong> <i class="fa-solid fa-chevron-down text-[10px]"></i>
           </button>
-          <button onclick="openFilterModal('year')" class="bg-netflix-card hover:bg-netflix-cardHover border border-netflix-border px-3.5 py-2 rounded-xl text-xs text-gray-200 flex items-center gap-2 whitespace-nowrap shadow-sm">
+          <button onclick="openFilterModal('year')" class="glass-pill hover:bg-netflix-cardHover border border-netflix-border px-3.5 py-2 rounded-xl text-xs text-gray-200 flex items-center gap-2 whitespace-nowrap">
             <span>Year:</span> <strong id="filter-label-year" class="text-netflix-red">All</strong> <i class="fa-solid fa-chevron-down text-[10px]"></i>
           </button>
-          <button onclick="openFilterModal('vj')" class="bg-netflix-card hover:bg-netflix-cardHover border border-netflix-border px-3.5 py-2 rounded-xl text-xs text-gray-200 flex items-center gap-2 whitespace-nowrap shadow-sm">
+          <button onclick="openFilterModal('vj')" class="glass-pill hover:bg-netflix-cardHover border border-netflix-border px-3.5 py-2 rounded-xl text-xs text-gray-200 flex items-center gap-2 whitespace-nowrap">
             <span>V.J:</span> <strong id="filter-label-vj" class="text-netflix-red">All</strong> <i class="fa-solid fa-chevron-down text-[10px]"></i>
           </button>
         </div>
@@ -297,9 +283,7 @@
 
     <!-- TV SHOWS TAB CONTENT -->
     <div id="tab-tvshows" class="hidden space-y-6">
-      <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-black text-white">Translated TV Series & Episodes</h1>
-      </div>
+      <h1 class="text-2xl font-black text-white">Translated TV Series</h1>
       <div id="tvshows-catalog-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
     </div>
 
@@ -309,8 +293,8 @@
         <i class="fa-solid fa-mobile-screen-button"></i>
       </div>
       <h2 class="text-3xl font-black text-white">trendzzz streams Mobile App</h2>
-      <p class="text-sm text-gray-400">Enjoy seamless mobile streaming with zero ads and 100% free access.</p>
-      <button onclick="alert('Downloading trendzzz streams App v2.4 (12 MB)...')" class="w-full bg-netflix-red hover:bg-netflix-redHover text-white font-extrabold py-3.5 rounded-2xl transition shadow-xl shadow-netflix-red/30 active:scale-95">
+      <p class="text-sm text-gray-400">Enjoy offline downloads, low data saving mode, and instant notifications.</p>
+      <button onclick="alert('Downloading APK...')" class="w-full bg-netflix-red hover:bg-netflix-redHover text-white font-extrabold py-3.5 rounded-2xl transition shadow-xl shadow-netflix-red/30">
         Download Free APK
       </button>
     </div>
@@ -318,34 +302,31 @@
     <!-- ME TAB CONTENT -->
     <div id="tab-me" class="hidden space-y-6 max-w-xl mx-auto py-6">
       <div class="bg-netflix-card border border-netflix-border rounded-3xl p-6 text-center space-y-4 shadow-xl">
-        <div class="w-20 h-20 bg-black rounded-full mx-auto overflow-hidden border-2 border-netflix-red flex items-center justify-center text-2xl font-bold text-white shadow-xl">
+        <div class="w-20 h-20 bg-black rounded-full mx-auto overflow-hidden border-2 border-netflix-red flex items-center justify-center text-2xl font-bold text-white">
           <span id="profile-initial">G</span>
         </div>
-        <div>
-          <h3 id="profile-name" class="text-xl font-black text-white">Guest User</h3>
-          <p class="text-xs text-netflix-red font-medium">100% Free Account Active</p>
-        </div>
+        <h3 id="profile-name" class="text-xl font-black text-white">Guest User</h3>
+        <p class="text-xs text-netflix-red font-medium">100% Free Account Active</p>
       </div>
     </div>
 
   </main>
 
-  <!-- MEDIA DETAILS MODAL (WITH BACKDROP TRAILER & SOUND TOGGLE) -->
+  <!-- MEDIA DETAILS MODAL WITH LIVE TRAILER PREVIEW -->
   <div id="details-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md overflow-y-auto hidden">
     <div class="min-h-screen px-4 py-8 max-w-5xl mx-auto flex items-center justify-center">
       <div class="bg-netflix-card border border-netflix-border rounded-3xl overflow-hidden w-full relative shadow-2xl space-y-6 pb-6 modal-animate">
         
-        <button onclick="closeMediaDetails()" class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/80 hover:bg-netflix-red hover:text-white text-white flex items-center justify-center transition border border-netflix-border shadow-lg">
+        <button onclick="closeMediaDetails()" class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full glass-pill hover:bg-netflix-red text-white flex items-center justify-center transition border border-netflix-border">
           <i class="fa-solid fa-xmark text-base"></i>
         </button>
 
-        <!-- Trailer Preview behind description -->
+        <!-- Live Trailer Preview behind description -->
         <div class="relative h-80 md:h-96 bg-black overflow-hidden">
-          <iframe id="detail-trailer-iframe" src="" class="absolute inset-0 w-full h-full object-cover opacity-50 pointer-events-none scale-125" allow="autoplay"></iframe>
+          <iframe id="detail-trailer-iframe" src="" class="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none scale-125" allow="autoplay"></iframe>
           <div class="absolute inset-0 bg-gradient-to-t from-netflix-card via-netflix-card/50 to-black/60"></div>
 
-          <!-- Audio / Sound Toggle -->
-          <button onclick="toggleTrailerSound()" id="sound-toggle-btn" class="absolute bottom-6 right-6 z-20 bg-black/80 hover:bg-netflix-card border border-netflix-border text-xs px-3.5 py-2 rounded-xl text-white flex items-center gap-2 backdrop-blur-md transition shadow-md">
+          <button onclick="toggleTrailerSound()" id="sound-toggle-btn" class="absolute bottom-6 right-6 z-20 glass-pill hover:bg-black border border-netflix-border text-xs px-3.5 py-2 rounded-xl text-white flex items-center gap-2">
             <i class="fa-solid fa-volume-xmark text-netflix-red" id="sound-icon"></i>
             <span id="sound-text">Sound Off</span>
           </button>
@@ -355,7 +336,7 @@
             <div class="space-y-2">
               <div class="flex items-center gap-2 flex-wrap">
                 <span id="detail-vj" class="bg-netflix-red text-white font-black text-xs px-3 py-1 rounded-md uppercase">VJ ICE P</span>
-                <span id="detail-year" class="bg-black/80 border border-netflix-border text-xs px-2.5 py-0.5 rounded text-gray-300">2022</span>
+                <span id="detail-year" class="glass-pill border border-netflix-border text-xs px-2.5 py-0.5 rounded text-gray-300">2022</span>
               </div>
               <h2 id="detail-title" class="text-2xl md:text-4xl font-black text-white drop-shadow">Title Name</h2>
               
@@ -363,6 +344,10 @@
                 <button onclick="playVideoModal()" class="bg-netflix-red hover:bg-netflix-redHover text-white font-extrabold text-xs md:text-sm px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-netflix-red/30">
                   <i class="fa-solid fa-play"></i>
                   <span>Play Stream</span>
+                </button>
+                <button onclick="triggerWatchPartyModal()" class="glass-pill hover:bg-netflix-border text-white font-semibold text-xs md:text-sm px-4 py-2.5 rounded-xl border border-netflix-border transition flex items-center gap-2">
+                  <i class="fa-solid fa-users text-netflix-red"></i>
+                  <span>Watch with friends</span>
                 </button>
               </div>
             </div>
@@ -382,7 +367,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="episodes-grid"></div>
         </div>
 
-        <!-- Cast Horizontal Section (Clickable for Actor Profiles) -->
+        <!-- Cast Section -->
         <div class="px-6 space-y-3 pt-2">
           <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest">Featured Cast (Click to explore actor movies)</h4>
           <div id="cast-list" class="flex gap-3 overflow-x-auto pb-2 hide-scrollbar"></div>
@@ -395,24 +380,38 @@
   <!-- ACTOR PROFILE MODAL -->
   <div id="actor-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
     <div class="bg-netflix-card border border-netflix-border rounded-3xl max-w-2xl w-full p-6 space-y-6 shadow-2xl relative modal-animate max-h-[90vh] overflow-y-auto">
-      <button onclick="closeActorModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
+      <button onclick="closeActorModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
       <div class="flex items-center gap-4">
-        <div id="actor-avatar" class="w-16 h-16 rounded-full bg-netflix-red text-white flex items-center justify-center text-2xl font-bold shadow-lg">A</div>
+        <div id="actor-avatar" class="w-16 h-16 rounded-full bg-netflix-red text-white flex items-center justify-center text-2xl font-bold">A</div>
         <div>
           <h3 id="actor-name" class="text-2xl font-black text-white">Actor Name</h3>
           <p class="text-xs text-netflix-red font-medium">Featured Film Personality</p>
         </div>
       </div>
       <div class="space-y-3">
-        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Other Movies & Series featuring this Personality:</h4>
+        <h4 class="text-xs font-bold text-gray-400 uppercase">Other Movies & Series featuring this Personality:</h4>
         <div id="actor-movies-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
       </div>
     </div>
   </div>
 
-  <!-- UPLOAD VIDEO MODAL -->
+  <!-- WATCH PARTY MODAL -->
+  <div id="watch-party-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-netflix-card border border-netflix-border rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl relative modal-animate text-center">
+      <div class="w-16 h-16 bg-netflix-red/10 border border-netflix-red/30 rounded-2xl flex items-center justify-center mx-auto text-netflix-red text-2xl shadow-lg">
+        <i class="fa-solid fa-users"></i>
+      </div>
+      <h3 class="text-xl font-extrabold text-white">Start a Watch Party</h3>
+      <p class="text-xs text-gray-400">Share this sync link with friends to watch together in real-time.</p>
+      <div class="bg-black border border-netflix-border rounded-xl p-3 flex items-center justify-between text-xs font-mono text-gray-300">
+        <span class="truncate">https://trendzzz.app/party/room-8942</span>
+        <button onclick="alert('Link Copied!')" class="bg-netflix-red text-white font-bold px-3 py-1.5 rounded-lg text-[11px] ml-2">Copy</button>
+      </div>
+      <button onclick="closeWatchPartyModal()" class="w-full glass-pill hover:bg-netflix-cardHover text-white font-bold py-2.5 rounded-xl text-xs transition">Close</button>
+    </div>
+  </div>
+
+  <!-- UPLOAD MODAL -->
   <div id="upload-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-netflix-card border border-netflix-border rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl relative modal-animate">
       <div class="flex items-center justify-between border-b border-netflix-border pb-3">
@@ -420,37 +419,471 @@
         <button onclick="closeUploadModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="space-y-3 text-xs">
-        <div>
-          <label class="block text-gray-400 mb-1">Movie / Series / Episode Title</label>
-          <input type="text" id="up-title" placeholder="e.g. Extraction 2 (Episode 1)" class="w-full bg-black border border-netflix-border rounded-xl px-3 py-2 text-white focus:border-netflix-red outline-none" />
-        </div>
+        <input type="text" id="up-title" placeholder="Movie / Episode Title" class="w-full bg-black border border-netflix-border rounded-xl px-3 py-2 text-white outline-none focus:border-netflix-red" />
         <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-gray-400 mb-1">Media Type</label>
-            <select id="up-type" class="w-full bg-black border border-netflix-border rounded-xl px-3 py-2 text-white outline-none">
-              <option value="Movie">Movie</option>
-              <option value="TV Show">TV Show Episode</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-gray-400 mb-1">VJ / Translator</label>
-            <input type="text" id="up-vj" placeholder="e.g. VJ JUNIOR" class="w-full bg-black border border-netflix-border rounded-xl px-3 py-2 text-white outline-none" />
-          </div>
+          <select id="up-type" class="w-full bg-black border border-netflix-border rounded-xl px-3 py-2 text-white outline-none">
+            <option value="Movie">Movie</option>
+            <option value="TV Show">TV Show Episode</option>
+          </select>
+          <input type="text" id="up-vj" placeholder="VJ Name (e.g. VJ JUNIOR)" class="w-full bg-black border border-netflix-border rounded-xl px-3 py-2 text-white outline-none" />
         </div>
-        <div>
-          <label class="block text-gray-400 mb-1">Video Stream / Download Link</label>
-          <input type="text" id="up-link" placeholder="https://..." class="w-full bg-black border border-netflix-border rounded-xl px-3 py-2 text-white outline-none" />
-        </div>
-        <button onclick="submitUserVideo()" class="w-full bg-netflix-red hover:bg-netflix-redHover text-white font-extrabold py-3 rounded-xl transition mt-2 shadow-lg shadow-netflix-red/20">
-          Submit for Admin & AI Verification
-        </button>
+        <input type="text" id="up-link" placeholder="Video Stream Link" class="w-full bg-black border border-netflix-border rounded-xl px-3 py-2 text-white outline-none" />
+        <button onclick="submitUserVideo()" class="w-full bg-netflix-red hover:bg-netflix-redHover text-white font-bold py-3 rounded-xl transition">Submit for AI Verification</button>
       </div>
     </div>
   </div>
 
-  <!-- ADMIN & AI VERIFICATION DASHBOARD -->
+  <!-- ADMIN AI MODAL -->
   <div id="admin-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
     <div class="bg-netflix-card border border-netflix-border rounded-3xl max-w-3xl w-full p-6 space-y-6 shadow-2xl relative modal-animate max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-netflix-border pb-3">
         <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-shield-halved text-netflix-red mr-2"></i> Admin & AI Verification Panel</h3>
-        <button onclick="toggleAdminPanel()" class="text-gray-400 hover
+        <button onclick="toggleAdminPanel()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div id="admin-submissions-list" class="space-y-3"></div>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div id="auth-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-netflix-card border border-netflix-border rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl relative modal-animate">
+      <div class="flex items-center justify-between border-b border-netflix-border pb-3">
+        <h3 class="text-lg font-bold text-white">Sign In to trendzzz streams</h3>
+        <button onclick="closeAuthModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <input type="email" id="auth-email" placeholder="name@example.com" class="w-full bg-black border border-netflix-border rounded-xl px-3 py-2 text-white outline-none" />
+        <input type="password" id="auth-pass" placeholder="••••••••" class="w-full bg-black border border-netflix-border rounded-xl px-3 py-2 text-white outline-none" />
+        <button onclick="handleUserAuth()" class="w-full bg-netflix-red hover:bg-netflix-redHover text-white font-bold py-3 rounded-xl transition">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO PLAYER MODAL -->
+  <div id="player-modal" class="fixed inset-0 z-50 bg-black flex flex-col justify-between hidden">
+    <div class="p-4 flex items-center justify-between bg-gradient-to-b from-black to-transparent">
+      <button onclick="closePlayerModal()" class="text-gray-300 hover:text-white p-2"><i class="fa-solid fa-arrow-left text-xl"></i></button>
+      <span class="text-xs bg-netflix-red text-white px-2.5 py-1 rounded font-bold">100% Free Stream</span>
+    </div>
+    <div class="flex-grow flex items-center justify-center p-4">
+      <div class="relative w-full max-w-4xl aspect-video bg-netflix-card rounded-2xl overflow-hidden border border-netflix-border flex flex-col items-center justify-center">
+        <i class="fa-solid fa-circle-play text-7xl text-netflix-red cursor-pointer hover:scale-110 transition" onclick="alert('Streaming live...')"></i>
+        <p class="mt-4 text-xs text-gray-400">High Speed Luganda Stream Active</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER MODAL -->
+  <div id="filter-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-netflix-card border border-netflix-border rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative modal-animate">
+      <div class="flex items-center justify-between border-b border-netflix-border pb-3">
+        <h3 id="filter-modal-title" class="text-lg font-bold text-white capitalize">Select Filter</h3>
+        <button onclick="closeFilterModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="filter-options-grid" class="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto"></div>
+    </div>
+  </div>
+
+  <!-- STICKY BOTTOM NAVIGATION BAR (GLASS ICONS WITH HOME, CHANNELS, MOVIES, SERIES, APP, ME) -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 glass-pill border-t border-netflix-border py-2 px-4 shadow-2xl md:hidden">
+    <div class="max-w-md mx-auto flex items-center justify-around">
+      <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-netflix-red transition">
+        <i class="fa-solid fa-house text-lg"></i>
+        <span class="text-[10px] font-bold mt-1">Home</span>
+      </button>
+      <button onclick="switchTab('channels')" id="nav-channels" class="flex flex-col items-center text-gray-400 hover:text-white transition">
+        <i class="fa-solid fa-tower-broadcast text-lg"></i>
+        <span class="text-[10px] font-medium mt-1">Live TV</span>
+      </button>
+      <button onclick="switchTab('movies')" id="nav-movies" class="flex flex-col items-center text-gray-400 hover:text-white transition">
+        <i class="fa-solid fa-film text-lg"></i>
+        <span class="text-[10px] font-medium mt-1">Movies</span>
+      </button>
+      <button onclick="switchTab('tvshows')" id="nav-tvshows" class="flex flex-col items-center text-gray-400 hover:text-white transition">
+        <i class="fa-solid fa-tv text-lg"></i>
+        <span class="text-[10px] font-medium mt-1">Series</span>
+      </button>
+      <button onclick="switchTab('app')" id="nav-app" class="flex flex-col items-center text-gray-400 hover:text-white transition">
+        <i class="fa-solid fa-mobile-screen text-lg"></i>
+        <span class="text-[10px] font-medium mt-1">App</span>
+      </button>
+      <button onclick="switchTab('me')" id="nav-me" class="flex flex-col items-center text-gray-400 hover:text-white transition">
+        <i class="fa-solid fa-user text-lg"></i>
+        <span class="text-[10px] font-medium mt-1">Me</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+    const translators = ["VJ JUNIOR", "VJ EMMY", "VJ ICE P", "VJ JINOO", "VJ ULIO", "VJ SOUL", "VJ IVO", "VJ MARK"];
+
+    const tvChannels = [
+      { id: 'c1', name: 'VJ Junior Stream 24/7', type: 'Translated Movies', status: 'LIVE', viewers: '14.2K', logo: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop' },
+      { id: 'c2', name: 'NTV Uganda Live', type: 'National News & Shows', status: 'LIVE', viewers: '28.5K', logo: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=300&auto=format&fit=crop' },
+      { id: 'c3', name: 'VJ Ice P Action Zone', type: 'Non-stop Action Dubs', status: 'LIVE', viewers: '9.8K', logo: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300&auto=format&fit=crop' },
+      { id: 'c4', name: 'BBS Terefayina', type: 'Entertainment & Culture', status: 'LIVE', viewers: '18.1K', logo: 'https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=300&auto=format&fit=crop' },
+      { id: 'c5', name: 'Bukedde TV Live', type: 'Luganda News & Drama', status: 'LIVE', viewers: '35.4K', logo: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=300&auto=format&fit=crop' },
+      { id: 'c6', name: 'VJ Emmy Series Pass', type: 'Full TV Seasons', status: 'LIVE', viewers: '12.0K', logo: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop' }
+    ];
+
+    let mediaItems = [
+      {
+        id: 0,
+        title: "The Terminal List",
+        type: "TV Show",
+        vj: "VJ ICE P",
+        year: 2022,
+        genre: "Action & Adventure",
+        rating: "4.9",
+        poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600&auto=format&fit=crop",
+        trailer: "https://www.youtube.com/embed/7XSkdRBx0js?autoplay=1&mute=1&controls=0&loop=1",
+        desc: "Navy SEAL Commander James Reece turns to vengeance as he investigates mysterious forces behind his platoon's ambush.",
+        cast: [
+          { name: "Chris Pratt", role: "James Reece" },
+          { name: "Constance Wu", role: "Katie Buranek" },
+          { name: "Taylor Kitsch", role: "Ben Edwards" }
+        ],
+        episodes: [
+          { ep: "E1", title: "The Engram", dur: "67 min", size: "611 MB", desc: "Reece returns home with conflicting memories." },
+          { ep: "E2", title: "Encoding", dur: "58 min", size: "543 MB", desc: "Reece locks onto his first target." }
+        ]
+      },
+      {
+        id: 1,
+        title: "Animals",
+        type: "Movie",
+        vj: "VJ JUNIOR",
+        year: 2026,
+        genre: "Thriller",
+        rating: "4.7",
+        poster: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop",
+        trailer: "https://www.youtube.com/embed/TcMBFSGVi1c?autoplay=1&mute=1&controls=0&loop=1",
+        desc: "When a mayoral candidate's son is kidnapped, frantic parents race against time.",
+        cast: [{ name: "Ben Affleck", role: "Candidate" }, { name: "Matt Damon", role: "Detective" }],
+        episodes: [{ ep: "Movie", title: "Full Movie Translated HD", dur: "114 min", size: "850 MB", desc: "Translated by VJ Junior." }]
+      },
+      {
+        id: 2,
+        title: "The Tomorrow War",
+        type: "Movie",
+        vj: "VJ JUNIOR",
+        year: 2021,
+        genre: "Sci-Fi",
+        rating: "4.8",
+        poster: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop",
+        trailer: "https://www.youtube.com/embed/QPistcpGB8o?autoplay=1&mute=1&controls=0&loop=1",
+        desc: "Time travelers arrive from 2051 to deliver an urgent message about an alien war.",
+        cast: [{ name: "Chris Pratt", role: "Dan Forester" }],
+        episodes: [{ ep: "Movie", title: "Full Feature HD", dur: "138 min", size: "920 MB", desc: "VJ Junior translation." }]
+      },
+      {
+        id: 3,
+        title: "Awarapan 4",
+        type: "Movie",
+        vj: "VJ ICE P",
+        year: 2026,
+        genre: "Action",
+        rating: "4.6",
+        poster: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
+        trailer: "https://www.youtube.com/embed/7XSkdRBx0js?autoplay=1&mute=1&controls=0&loop=1",
+        desc: "A hitman with a tragic past guards a boss's mistress.",
+        cast: [{ name: "Emraan Hashmi", role: "Shiv" }],
+        episodes: [{ ep: "Movie", title: "Translated Version", dur: "125 min", size: "780 MB", desc: "VJ Ice P Dub." }]
+      },
+      {
+        id: 4,
+        title: "Kalki 2898-AD",
+        type: "Movie",
+        vj: "VJ MARK",
+        year: 2024,
+        genre: "Sci-Fi",
+        rating: "4.9",
+        poster: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop",
+        trailer: "https://www.youtube.com/embed/yQzZzuunhMo?autoplay=1&mute=1&controls=0&loop=1",
+        desc: "A modern avatar of a Hindu god descends to protect earth.",
+        cast: [{ name: "Prabhas", role: "Bhairava" }, { name: "Deepika Padukone", role: "SUM-80" }],
+        episodes: [{ ep: "Movie", title: "Full Stream", dur: "180 min", size: "1.2 GB", desc: "VJ Mark translation." }]
+      }
+    ];
+
+    let pendingSubmissions = [
+      { id: 101, title: "Extraction 2 (Ep 3)", type: "TV Show", vj: "VJ JUNIOR", link: "https://example.com/ext2", status: "Pending AI Verification" }
+    ];
+
+    let currentTab = 'home';
+    let heroIndex = 0;
+    let activeFilters = { genre: 'All', year: 'All', vj: 'All' };
+
+    window.onload = function() {
+      renderTranslatorChips();
+      renderHeroSlider();
+      renderTVChannels();
+      renderTopRankings();
+      renderGrids();
+    };
+
+    function switchTab(tabId) {
+      currentTab = tabId;
+      ['home', 'channels', 'movies', 'tvshows', 'app', 'me'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+      });
+      document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderTVChannels() {
+      const channelHTML = (ch) => `
+        <div onclick="playVideoModal()" class="bg-netflix-card border border-netflix-border rounded-2xl p-3 cursor-pointer group card-zoom flex flex-col justify-between space-y-3">
+          <div class="relative aspect-video bg-black rounded-xl overflow-hidden">
+            <img src="${ch.logo}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300 opacity-80" />
+            <div class="absolute top-2 left-2 bg-netflix-red text-white text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-white pulse-live"></span> ${ch.status}
+            </div>
+            <div class="absolute bottom-2 right-2 bg-black/80 text-gray-300 text-[9px] px-1.5 py-0.5 rounded">
+              <i class="fa-solid fa-eye text-netflix-red"></i> ${ch.viewers}
+            </div>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-white truncate group-hover:text-netflix-red transition">${ch.name}</h4>
+            <p class="text-[10px] text-gray-400 truncate">${ch.type}</p>
+          </div>
+        </div>
+      `;
+      document.getElementById('home-tv-channels-grid').innerHTML = tvChannels.map(ch => channelHTML(ch)).join('');
+      document.getElementById('full-tv-channels-grid').innerHTML = tvChannels.map(ch => channelHTML(ch)).join('');
+    }
+
+    function renderTranslatorChips() {
+      document.getElementById('translator-chips').innerHTML = translators.map(vj => `
+        <button onclick="filterByVJ('${vj}')" class="glass-pill hover:bg-netflix-red hover:text-white border border-netflix-border px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap text-gray-200 transition">
+          ${vj}
+        </button>
+      `).join('');
+    }
+
+    function renderHeroSlider() {
+      const item = mediaItems[heroIndex];
+      document.getElementById('hero-bg').src = item.poster;
+      document.getElementById('hero-title').innerText = item.title;
+      document.getElementById('hero-vj').innerText = item.vj;
+      document.getElementById('hero-type').innerText = item.type;
+      document.getElementById('hero-year').innerText = item.year;
+      document.getElementById('hero-desc').innerText = item.desc;
+      document.getElementById('hero-details-btn').setAttribute('onclick', `openMediaDetails(${item.id})`);
+
+      document.getElementById('hero-dots').innerHTML = mediaItems.slice(0, 4).map((_, idx) => `
+        <button onclick="heroIndex=${idx}; renderHeroSlider();" class="w-2.5 h-2.5 rounded-full transition ${idx === heroIndex ? 'bg-netflix-red w-6' : 'bg-netflix-border'}"></button>
+      `).join('');
+    }
+
+    function nextHeroSlide() { heroIndex = (heroIndex + 1) % Math.min(4, mediaItems.length); renderHeroSlider(); }
+    function prevHeroSlide() { heroIndex = (heroIndex - 1 + Math.min(4, mediaItems.length)) % Math.min(4, mediaItems.length); renderHeroSlider(); }
+
+    function renderTopRankings() {
+      document.getElementById('top-rankings-row').innerHTML = mediaItems.slice(0, 5).map((item, idx) => `
+        <div onclick="openMediaDetails(${item.id})" class="flex-shrink-0 w-36 cursor-pointer group card-zoom relative">
+          <div class="absolute -left-3 bottom-0 text-7xl font-black text-black stroke-netflix-red z-20 pointer-events-none drop-shadow-[0_2px_4px_rgba(229,9,20,0.5)]">${idx + 1}</div>
+          <div class="relative aspect-[2/3] bg-netflix-card rounded-2xl overflow-hidden border border-netflix-border ml-4 shadow-xl">
+            <img src="${item.poster}" class="w-full h-full object-cover group-hover:scale-105 transition" />
+            <div class="absolute top-2 right-2 bg-netflix-red text-white text-[9px] font-black px-1.5 py-0.5 rounded uppercase">${item.vj}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderGrids() {
+      document.getElementById('home-movies-grid').innerHTML = mediaItems.filter(m => m.type === 'Movie').map(item => createCardHTML(item)).join('');
+      document.getElementById('home-tv-grid').innerHTML = mediaItems.filter(m => m.type === 'TV Show').map(item => createCardHTML(item)).join('');
+      applyFilters();
+    }
+
+    function createCardHTML(item) {
+      return `
+        <div onclick="openMediaDetails(${item.id})" class="bg-netflix-card border border-netflix-border rounded-2xl overflow-hidden cursor-pointer group card-zoom flex flex-col justify-between shadow-lg">
+          <div class="relative aspect-[2/3] bg-black overflow-hidden">
+            <img src="${item.poster}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+            <div class="absolute top-2 left-2 bg-netflix-red text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">${item.vj}</div>
+            <div class="absolute bottom-2 right-2 bg-black/80 text-gray-300 text-[10px] px-1.5 py-0.5 rounded">${item.year}</div>
+          </div>
+          <div class="p-3 space-y-1">
+            <h4 class="text-xs font-bold text-white truncate group-hover:text-netflix-red transition">${item.title}</h4>
+            <div class="flex items-center justify-between text-[11px] text-gray-400">
+              <span>${item.type}</span>
+              <span class="text-amber-400 font-bold"><i class="fa-solid fa-star text-[9px]"></i> ${item.rating}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function openMediaDetails(id) {
+      const item = mediaItems.find(m => m.id === id);
+      if(!item) return;
+      document.getElementById('detail-trailer-iframe').src = item.trailer || "https://www.youtube.com/embed/7XSkdRBx0js?autoplay=1&mute=1&controls=0&loop=1";
+      document.getElementById('detail-poster').src = item.poster;
+      document.getElementById('detail-title').innerText = item.title;
+      document.getElementById('detail-vj').innerText = item.vj;
+      document.getElementById('detail-year').innerText = item.year;
+      document.getElementById('detail-desc').innerText = item.desc;
+
+      document.getElementById('episodes-grid').innerHTML = item.episodes.map(ep => `
+        <div class="bg-black border border-netflix-border rounded-2xl p-3.5 space-y-3">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-black text-netflix-red">${ep.ep}</span>
+            <span class="text-gray-400">${ep.size}</span>
+          </div>
+          <h5 class="text-sm font-bold text-white">${ep.title}</h5>
+          <button onclick="playVideoModal()" class="w-full bg-netflix-red/20 hover:bg-netflix-red text-netflix-red hover:text-white font-bold py-2 rounded-xl text-xs transition">Play Stream</button>
+        </div>
+      `).join('');
+
+      document.getElementById('cast-list').innerHTML = (item.cast || []).map(c => `
+        <button onclick="openActorProfile('${c.name}')" class="flex-shrink-0 flex items-center gap-2.5 bg-black border border-netflix-border px-3.5 py-2 rounded-xl text-xs hover:border-netflix-red transition">
+          <div class="w-7 h-7 rounded-full bg-netflix-red flex items-center justify-center font-bold text-white">${c.name[0]}</div>
+          <div class="text-left"><div class="font-bold text-white">${c.name}</div><div class="text-[10px] text-gray-400">${c.role}</div></div>
+        </button>
+      `).join('');
+
+      document.getElementById('details-modal').classList.remove('hidden');
+    }
+
+    function closeMediaDetails() { document.getElementById('details-modal').classList.add('hidden'); }
+
+    let trailerMuted = true;
+    function toggleTrailerSound() {
+      trailerMuted = !trailerMuted;
+      const btnText = document.getElementById('sound-text');
+      const icon = document.getElementById('sound-icon');
+      if(trailerMuted) {
+        btnText.innerText = "Sound Off";
+        icon.className = "fa-solid fa-volume-xmark text-netflix-red";
+      } else {
+        btnText.innerText = "Sound On";
+        icon.className = "fa-solid fa-volume-high text-netflix-red";
+      }
+    }
+
+    function openActorProfile(actorName) {
+      document.getElementById('actor-name').innerText = actorName;
+      document.getElementById('actor-avatar').innerText = actorName[0];
+      const matched = mediaItems.filter(m => m.cast && m.cast.some(c => c.name === actorName));
+      document.getElementById('actor-movies-grid').innerHTML = matched.map(m => createCardHTML(m)).join('') || '<p class="text-xs text-gray-400">No other titles found.</p>';
+      document.getElementById('actor-modal').classList.remove('hidden');
+    }
+    function closeActorModal() { document.getElementById('actor-modal').classList.add('hidden'); }
+
+    function openUploadModal() { document.getElementById('upload-modal').classList.remove('hidden'); }
+    function closeUploadModal() { document.getElementById('upload-modal').classList.add('hidden'); }
+    function triggerWatchPartyModal() { document.getElementById('watch-party-modal').classList.remove('hidden'); }
+    function closeWatchPartyModal() { document.getElementById('watch-party-modal').classList.add('hidden'); }
+
+    function submitUserVideo() {
+      const title = document.getElementById('up-title').value;
+      const type = document.getElementById('up-type').value;
+      const vj = document.getElementById('up-vj').value;
+      const link = document.getElementById('up-link').value;
+      if(!title || !link) { alert('Please fill in title and link'); return; }
+      pendingSubmissions.push({ id: Date.now(), title, type, vj: vj || 'VJ JUNIOR', link, status: "Pending AI Verification" });
+      alert('Video uploaded successfully! Sent to Admin & AI queue.');
+      closeUploadModal();
+    }
+
+    function toggleAdminPanel() {
+      const modal = document.getElementById('admin-modal');
+      modal.classList.toggle('hidden');
+      if(!modal.classList.contains('hidden')) renderAdminSubmissions();
+    }
+
+    function renderAdminSubmissions() {
+      document.getElementById('admin-submissions-list').innerHTML = pendingSubmissions.length ? pendingSubmissions.map(sub => `
+        <div class="bg-black border border-netflix-border rounded-2xl p-4 flex justify-between items-center">
+          <div>
+            <h4 class="text-sm font-bold text-white">${sub.title} (${sub.type})</h4>
+            <p class="text-xs text-gray-400">VJ: <span class="text-netflix-red">${sub.vj}</span> • Status: <span class="text-amber-400">${sub.status}</span></p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="aiVerifySubmission(${sub.id})" class="bg-amber-500/20 text-amber-300 text-xs px-3 py-1.5 rounded-xl font-bold">Verify</button>
+            <button onclick="approveSubmission(${sub.id})" class="bg-netflix-red text-white text-xs px-3 py-1.5 rounded-xl font-bold">Approve</button>
+          </div>
+        </div>
+      `).join('') : '<p class="text-xs text-gray-400">No pending uploads.</p>';
+    }
+
+    function aiVerifySubmission(id) {
+      alert('AI verified metadata against IMDb & TMDb!');
+      const sub = pendingSubmissions.find(s => s.id === id);
+      if(sub) sub.status = "Verified by AI";
+      renderAdminSubmissions();
+    }
+
+    function approveSubmission(id) {
+      const idx = pendingSubmissions.findIndex(s => s.id === id);
+      if(idx > -1) {
+        const item = pendingSubmissions[idx];
+        mediaItems.unshift({
+          id: mediaItems.length,
+          title: item.title,
+          type: item.type,
+          vj: item.vj,
+          year: 2026,
+          genre: "Action",
+          rating: "4.8",
+          poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600&auto=format&fit=crop",
+          trailer: "https://www.youtube.com/embed/7XSkdRBx0js?autoplay=1&mute=1&controls=0&loop=1",
+          desc: "Community submitted verified stream.",
+          episodes: [{ ep: "Full", title: item.title, dur: "90 min", size: "700 MB", desc: "User stream." }]
+        });
+        pendingSubmissions.splice(idx, 1);
+        renderAdminSubmissions();
+        renderGrids();
+        alert('Published live!');
+      }
+    }
+
+    function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
+    function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
+    function handleUserAuth() {
+      const email = document.getElementById('auth-email').value;
+      if(!email) { alert('Enter email'); return; }
+      document.getElementById('auth-btn-text').innerText = email.split('@')[0];
+      document.getElementById('profile-name').innerText = email;
+      document.getElementById('profile-initial').innerText = email[0].toUpperCase();
+      closeAuthModal();
+      alert('Signed in successfully!');
+    }
+
+    function playVideoModal() { document.getElementById('player-modal').classList.remove('hidden'); }
+    function closePlayerModal() { document.getElementById('player-modal').classList.add('hidden'); }
+
+    function openFilterModal(type) {
+      document.getElementById('filter-modal-title').innerText = `Select ${type}`;
+      let opts = type === 'genre' ? ['All', 'Action', 'Thriller', 'Sci-Fi'] : type === 'year' ? ['All', '2026', '2024', '2022', '2021'] : ['All', ...translators];
+      document.getElementById('filter-options-grid').innerHTML = opts.map(o => `
+        <button onclick="activeFilters['${type}']='${o}'; document.getElementById('filter-label-${type}').innerText='${o}'; closeFilterModal(); applyFilters();" class="text-left px-3 py-2 rounded-xl text-xs bg-black border border-netflix-border text-white hover:bg-netflix-red font-semibold">${o}</button>
+      `).join('');
+      document.getElementById('filter-modal').classList.remove('hidden');
+    }
+    function closeFilterModal() { document.getElementById('filter-modal').classList.add('hidden'); }
+
+    function filterByVJ(vj) { activeFilters.vj = vj; switchTab('movies'); applyFilters(); }
+
+    function applyFilters() {
+      const filtered = mediaItems.filter(m => 
+        (activeFilters.genre === 'All' || m.genre.includes(activeFilters.genre)) &&
+        (activeFilters.year === 'All' || m.year.toString() === activeFilters.year) &&
+        (activeFilters.vj === 'All' || m.vj === activeFilters.vj)
+      );
+      document.getElementById('movies-catalog-grid').innerHTML = filtered.filter(m => m.type === 'Movie').map(i => createCardHTML(i)).join('');
+      document.getElementById('tvshows-catalog-grid').innerHTML = filtered.filter(m => m.type === 'TV Show').map(i => createCardHTML(i)).join('');
+    }
+
+    function handleSearch(q) {
+      if(!q.trim()) { applyFilters(); return; }
+      const res = mediaItems.filter(m => m.title.toLowerCase().includes(q.toLowerCase()) || m.vj.toLowerCase().includes(q.toLowerCase()));
+      document.getElementById('movies-catalog-grid').innerHTML = res.map(i => createCardHTML(i)).join('');
+      switchTab('movies');
+    }
+  </script>
+</body>
+</html>
